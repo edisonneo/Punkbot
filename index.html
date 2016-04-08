@@ -249,8 +249,9 @@ function main(){
 	// prog_tree_page = new ProgressTreePage();
 	prog_tree = new ProgressTree();
 	frames = 0;
-	robot_parts = 10;
+	robot_parts = 1000;
 	energy_cells = 500;
+	gameOverState = false;
 	
 	skill_cost_multiplier = 1.2;
 	skill_cost = 5;
@@ -373,6 +374,13 @@ function main(){
 		else{
 			hold_click_counter = 0;
 		}
+		if(gameState !== home){
+			$(".game-stats").show();
+		}
+		else{
+			$(".game-stats").hide();
+		}
+
 		if(gameState == trader_page){
 			trader_div.removeClass('display-none');
 		}

@@ -30,6 +30,8 @@ HPBar = function(x, y, energy){
 	this.y = y;
 	this.height = 12;
 	this.energy_cells = energy;
+	this.image = new Image();
+	this.image.src = "images/energy_bar_full.png";
 	this.color = "#39FF14";
 	this.divider = this.energy_cells/457;
 
@@ -54,6 +56,7 @@ HPBar = function(x, y, energy){
 			this.width = energy_cells/this.divider;
 		}
 		else{
+			ctx.drawImage(this.image, this.x-8, this.y-17, 475, 45)
 			//Glowing Animation
 			this.width = 457;
 		}
@@ -195,18 +198,18 @@ SwarmEnemy = function(x,y,type,change_angle){
 
 	switch (this.type){
 		case 0:
-			this.hit_points = 2;
+			this.hit_points = 3;
 			this.image.src = "images/enemy1.png";
 			this.move_speed = 0.6;
 			break;
 		case 1:
-			this.hit_points = 5;
+			this.hit_points = 7;
 			this.shoot = true;
 			this.image.src = "images/enemy2.png";
 			this.move_speed = 0.4;
 			break;
 		case 2: 
-			this.hit_points = 18;
+			this.hit_points = 22;
 			this.image.src = "images/enemy3.png";
 			this.move_speed = 0.2;
 			break;
@@ -302,6 +305,14 @@ SwarmEnemy = function(x,y,type,change_angle){
 					case "sniper":
 						//damage_differential = b.bullet_damage - this.hit_points;
 						this.hit_points -= b.bullet_damage;
+						if(b.width > 0){
+							b.width -= player.sniper_bullet.penetration_count;
+						}
+						else {
+							b.remove = true;
+						
+						}
+
 							// bullets.friendly.splice(i,1);
 				 		// 	i--;
 				 		// 	len--;
@@ -382,7 +393,9 @@ Bullet = function(x,y,angle,type, bullet_speed, bullet_damage, bullet_size, bull
 	this.angle = angle;
 	this.realAngle = Math.atan2(my - this.y + this.height/2, mx - this.x + this.width/2 );
 	this.image = new Image();
-	this.penetration_count = 2;
+	this.sniperPenetration = 1;
+	this.frames = 0;
+	this.remove = false;
 	switch(this.bullet_skill){
 		case "pistol":
 			this.image.src = "images/bullet-g.png"
@@ -394,13 +407,12 @@ Bullet = function(x,y,angle,type, bullet_speed, bullet_damage, bullet_size, bull
 			this.image.src = "images/bullet-b.png"
 			break;
 		case "bazooka":
-			this.image.src = "images/bullet-r.png"
+			this.image.src = "images/bullet-p.png"
 			break;
 		case "enemy":
 			this.image.src = "images/bullet-g.png"
 			break;
 	}
-	// this.image.src = "images/bullet-g.png";
 	this.height = bullet_size;
 	this.bullet_speed = bullet_speed;
 	this.bullet_damage = bullet_damage;
@@ -429,8 +441,15 @@ Bullet = function(x,y,angle,type, bullet_speed, bullet_damage, bullet_size, bull
 
 	}
 	this.update =function(){
+		this.frames++;
+		
+		if (this.bullet_skill !== "pistol" && this.frames >= 30){
+			this.remove = true;
+		}
 		this.y += this.vely;
 		this.x += this.velx;
+
+
 
 	}
 
@@ -655,6 +674,8 @@ OverheatBar = function(x,y){
 	this.x = x;
 	this.y = y;
 	this.bar_color = "red";
+	this.image = new Image();
+	this.image.src = "images/overheat_bar_full.png"
 	this.bar_outline = "white";
 	this.height = 12;
 	this.draw = function(){
@@ -669,6 +690,9 @@ OverheatBar = function(x,y){
 	}
 	this.update = function(){
 		this.width = player.overheat;
+		if(this.width >= 250){
+			// ctx.drawImage(this.image, this.x, this.y);
+		}
 	}
 }
 
@@ -737,9 +761,13 @@ BazookaAoe = function(x,y,range){
 	this.x = x;
 	this.y = y;
 	this.radius = 5;
-	this.color = "red";
+	this.color = "#D15FEE";
 	this.maxRadius = range;
 	this.frames = 0;
+	this.height = 100;
+	this.width = 100;
+	this.image = new Image();
+	this.image.src = "images/bazookaAOE.png";
 	this.blastFinished = false;
 	this.draw = function(){
 		ctx.save();
@@ -748,6 +776,7 @@ BazookaAoe = function(x,y,range){
 		ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
       	ctx.fillStyle = this.color;
       	ctx.fill();
+      	ctx.drawImage(this.image, this.x - this.width/2 , this.y - this.height/2, this.width, this.height);
      	ctx.closePath();
       	ctx.restore();
       	this.update();
@@ -764,10 +793,14 @@ BazookaAoe = function(x,y,range){
 
 		if (!this.blastMax){
 			this.radius += 3;
+			this.height += 3;
+			this.width += 3;
 		}
 
 		if(this.blastMax){
 			this.radius -= 3;
+			this.height -=3;
+			this.width -= 3;
 			if (this.radius <= 0){
 				this.radius = 0;
 				this.blastFinished = true;
@@ -795,8 +828,8 @@ GameTitle = function(){
 
 
 GameOver = function(){
-	this.x = canvas.width/2 - 150;
-	this.y = 200;
+	this.x = canvas.width/2 - 250;
+	this.y = 400;
 	this.color = "white";
 	this.draw = function(){
 		ctx.fillStyle = this.color;
@@ -810,12 +843,12 @@ GameOver = function(){
 }
 
 Warning = function(){
-	this.x = 700
-	this.y = 65;
+	this.x = canvas.width/2 - 200;
+	this.y = 400;
 	this.color = "red";
 	this.draw = function(){
 		ctx.fillStyle = this.color;
-		ctx.font = "30px sans-serif";
+		ctx.font = "40px OCR";
 		ctx.fillText("Overheating!!!", this.x , this.y);
 		this.update();
 	}
@@ -836,7 +869,7 @@ OverheatMultiplier = function(){
 	this.color = "yellow";
 	this.draw = function(){
 		ctx.fillStyle = this.color;
-		ctx.font = "20px sans-serif";
+		ctx.font = "18px OCR";
 		this.update();
 	}
 	this.update = function(){
@@ -899,6 +932,42 @@ UltimateSkillBox =  function(x,ultimate){
 			case "Robesity":
 				this.opacity = player.robesityCool;
 		}
+	}
+}
+
+
+TradeArrow = function(){
+	this.x = 195;
+	this.y = canvas.height - 60;
+	this.image = new Image();
+	this.remove = false;
+	this.image.src = "images/trade_button.png";
+	this.frames = 0;
+	this.draw = function(){
+		ctx.drawImage(this.image, this.x, this.y);
+		this.update();
+	}
+	this.update = function(){
+		this.frames++;
+		if(this.frames > 120){
+			this.remove = true;
+		}
+	}
+}
+
+TimeIndicator = function(){
+	this.x = 200;
+	this.y = 18;
+	this.width = 70;
+	this.height = 70;
+	this.image = new Image();
+	this.image.src = "images/time_indicator.png";
+	this.draw = function(){
+		ctx.drawImage(this.image, this.x, this.y, this.width, this.height)
+		this.update();
+	}
+	this.update = function(){
+
 	}
 }
 

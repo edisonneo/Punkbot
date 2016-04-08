@@ -35,6 +35,10 @@ canvas{
 	font-size: 16px;
 }
 
+.game-stats{
+	display: none;
+}
+
 #trader{
 	text-align: center;
 	opacity: 0.7;

@@ -104,6 +104,7 @@ EnemyLevel = function(level_number, robot_parts_reward){
 	ovhmulti = new OverheatMultiplier();
 	gameStats = new GameStats(300,canvas.height - 50);
 	prog_tree = new ProgressTree();
+	timeIndicator = new TimeIndicator();
 	overheat_bar = new OverheatBar(692, canvas.height-40);
 	hp_bar = new HPBar(483, canvas.height-68, energy_cells);
 	lsq = new LSq();
@@ -112,9 +113,12 @@ EnemyLevel = function(level_number, robot_parts_reward){
 	this.bazookaAoe = [];	
 	this.enemies = [];
 	this.parts = [];
+	this.chill = false;
 	this.oilSlicks = [];
+	this.tarrows = [];
 	this.swarm = true;
 	this.numberOfEnemies = 0;
+	this.chillFrames = 0;
 	switch(this.level_number){
 		//Enemy Params: Robot Part Rewards, Hit Points, Bullet Damage, Move Speed
 		case 1:
@@ -203,6 +207,7 @@ EnemyLevel = function(level_number, robot_parts_reward){
 		prog_tree.draw();
 		overheat_bar.draw();
 		hp_bar.draw();
+		timeIndicator.draw();
 		// lsq.draw();
 		arena.draw();
 		left_click_skill.draw();
@@ -235,12 +240,16 @@ EnemyLevel = function(level_number, robot_parts_reward){
 		for (var i = 0; i < this.oilSlicks.length; i++) {
 			this.oilSlicks[i].draw();
 		};
+		for (var i = 0; i < this.tarrows.length; i++) {
+			this.tarrows[i].draw();
+		};
 		this.update();
 	}
 	this.update = function(){
 		this.frames++;
+		this.chillFrames ++;
 
-
+		console.log(this.chill);
 		// if(mx < arena.x + arena.width && mx > arena.x && my < arena.y + arena.height && my > arena.y){
 		// 	$("#game").css({cursor:"none"});
 		// }	
@@ -255,6 +264,8 @@ EnemyLevel = function(level_number, robot_parts_reward){
 		}
 
 		if(input.isPressed(16)){
+			chargeAudio();
+			this.tarrows.push(new TradeArrow());
 			robot_parts -= 1;
 			energy_cells += 30;
 		}
@@ -361,13 +372,16 @@ EnemyLevel = function(level_number, robot_parts_reward){
 					break;
 
 			}
-			this.enemies.push(new SwarmEnemy(randomx,randomy(), randomtype, this.change_angle_interval));
-			this.numberOfEnemies ++;
+			if(!this.chill){
+				this.enemies.push(new SwarmEnemy(randomx,randomy(), randomtype, this.change_angle_interval));
+				timeIndicator.x += 500/700;
+				this.numberOfEnemies ++;
+			}
 		}
 
 
 		switch(this.numberOfEnemies){
-			case 50:
+			case 4:
 				this.wave = 2;
 				break;
 			case 100:
@@ -384,6 +398,14 @@ EnemyLevel = function(level_number, robot_parts_reward){
 
 		}
 
+		for (var i = 0, len = this.tarrows.length; i < len; i++) {
+			t = this.tarrows[i]
+			if(t.remove){
+				this.tarrows.splice(i,1);
+				i--;
+				len--;
+			}
+		};
 
 		for (var i = 0, len = this.bazookaAoe.length; i < len; i++) {
 			b = this.bazookaAoe[i];
@@ -403,6 +425,8 @@ EnemyLevel = function(level_number, robot_parts_reward){
 				if (this.frames > 500 && len <= 0){
 					game_message.innerHTML = "You won!"
 					game_message_div.show();
+					gameOverState = true;
+
 					$(".game-message button").click(function(){
 						gameState = home;
 						game_message_div.hide();
@@ -459,6 +483,12 @@ EnemyLevel = function(level_number, robot_parts_reward){
 			// 	len--;
 			// 	continue;
 			// }
+			if(b.remove){
+				bullets.friendly.splice(i,1);
+				i--;
+				len--;
+				continue;
+			}
 			if(b.x < (canvas.width - arena.width)/2){
 				bullets.friendly.splice(i,1);
 				i--;

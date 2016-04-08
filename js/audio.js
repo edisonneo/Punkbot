@@ -34,7 +34,7 @@ function bazookaAudio(){
     bazookaSound.addEventListener("ended", function () {
         document.removeChild(this);
     }, false);
-    bazookaSound.volume = 0.2;
+    bazookaSound.volume = 0.1;
     bazookaSound.play();   
 }
 
@@ -79,5 +79,17 @@ function pickupAudio(){
     pickupSound.volume = 0.6;
     pickupSound.play();   
 }
+
+
+function chargeAudio(){
+    var chargeSound = document.createElement("audio");
+    chargeSound.src = "audio/charge.wav";
+    chargeSound.addEventListener("ended", function () {
+        document.removeChild(this);
+    }, false);
+    chargeSound.volume = 0.6;
+    chargeSound.play();   
+}
+
 
 

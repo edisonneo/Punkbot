@@ -17,7 +17,6 @@ Player = function(current_energy_cells){
 	};
 	this.dead = false;
 
-	this.speed = 1;
 	this.image = new Image();
 	this.image.src = 'images/player.png';
 	this.bullet_damage = 1;	
@@ -83,13 +82,13 @@ Player = function(current_energy_cells){
 		this.sniper_bullet = {
 				damage : this.bullet_damage/3 + sniperPower/10,
 				speed : this.bullet_speed * 2 + sniperSpeed,
-				penetration_count: this.penetration_count + sniperEffect
+				penetration_count: this.penetration_count - sniperEffect/10
 		}
 
 		this.bazooka_bullet = {
 				damage: this.bullet_damage * 3 + bazookaPower,
 				aoeDamage : this.bullet_damage/10 + bazookaPower/8,
-				speed: this.bullet_speed/2 + bazookaSpeed,
+				speed: this.bullet_speed/ 1.5 + bazookaSpeed,
 				size : this.bazooka_size,
 				range: this.bazookaRange + bazookaEffect*5
 		}
@@ -163,6 +162,22 @@ Player = function(current_energy_cells){
 			warning.draw();
 			overheat_bar.bar_color = "red";
 			ovhmulti.color = "red";
+		}
+
+
+		switch(this.skill_names[left_click_skill.toggle]){
+			case "pistol":
+				this.speed = 1.5;
+				break;
+			case "shotgun":
+				this.speed = 1;
+				break;
+			case "sniper":
+				this.speed = 0.8;
+				break;
+			case "bazooka":
+				this.speed = 0.5;
+				break;
 		}
 
 		for (var i = 0; i < bullets.enemy.length; i++) {
@@ -331,6 +346,7 @@ Player = function(current_energy_cells){
 		if (energy_cells <= 0 ){
 			game_message.innerHTML = "You Die!";
 			console.log("you die!");
+			gameOverState = true;
 			energy_cells = 0;
 			robot_parts = 0;
 			this.dead = true;
