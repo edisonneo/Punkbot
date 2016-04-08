@@ -1,0 +1,107 @@
+@font-face{
+	font-family: OCR;
+	src:url("fonts/OCRAStd.otf");
+}
+
+body{
+	background-color: #000;
+	font-family: OCR;
+}
+
+canvas{
+	background-color: #000;
+	display: block;
+	position: absolute;
+	margin: auto;
+	top: 0px;
+	cursor: url(images/target.png) 15 15 , auto;
+	left: 100px;
+}
+
+
+.game-stats.parts{
+	position: absolute;
+	top: 89.2%;
+	left:15%;
+}
+
+.game-stats.cells{
+	position: absolute;
+	top: 89.2%;
+	left:31%;
+}
+
+.game-stats .odometer{
+	font-size: 16px;
+}
+
+#trader{
+	text-align: center;
+	opacity: 0.7;
+	word-wrap:normal;
+	position: absolute;
+ 	z-index: 50;
+ 	top: 50%;
+ 	left: 50%;
+ 	transform: translate(-50%,-50%);
+ 	background: #fff;
+ 	padding: 15px 100px;
+ 	border-radius: 15px;
+}
+
+#skillTree{
+	opacity: 0.7;
+	word-wrap:normal;
+	width: 80%;
+	position: absolute;
+ 	z-index: 50;
+ 	top: 50%;
+ 	left: 50%;
+ 	transform: translate(-50%,-50%);
+ 	background: #fff;
+ 	text-align: center;
+ 	border-radius: 15px;
+ 	font-size: 30px;
+}
+
+#game_message{
+	width: 200px;
+	word-wrap:normal;
+}
+
+.game-message{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	padding: 100px 200px;
+	background: white;
+	border-radius: 15px;
+}
+
+.skill-level-container{
+	margin: 0 auto;
+	background: black;
+	width: 50%;
+}
+
+.skill-level-container p{
+	color:white;
+}
+
+.effect-descrip{
+	font-size: 12px;
+}
+
+
+.skill-cost span{
+	color:red;
+}
+
+.skill-level-container.ultimate{
+	background: transparent;
+}
+
+.display-none{
+	display: none;
+}

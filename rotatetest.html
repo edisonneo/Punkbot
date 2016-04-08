@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+	<h2 id="debug"></h2>
+	<canvas id ="game"></canvas>
+	<img src="spritesheet-test.png" alt="" style="display:none">
+
+<script>
+
+main = function(){
+
+	canvas = document.getElementById('game');
+	ctx = canvas.getContext('2d');
+	canvasLeft = ctx.canvas.offsetLeft;
+    canvasTop = ctx.canvas.offsetTop;
+    canvas.width = 500;
+    canvas.height = 500;
+
+    debug = document.getElementById('debug');
+    var mx,my;
+
+    ctx.canvas.addEventListener('mousemove',function(event){
+			mx = event.pageX - canvasLeft;
+			my = event.pageY - canvasTop;
+	});
+
+
+    Player = function(){
+    	this.x = 200;
+    	this.y = 200;
+    	this.sprite = new Image();
+    	this.sprite.src = "spritesheet-test.png";
+    	this.width = 50;
+    	this.height = 50;
+    
+    	this.draw = function(){
+    		ctx.save();
+	    	ctx.fillStyle ="#fff"; 
+	    	ctx.translate(this.x + this.width/2, this.y + this.height/2);
+	    	ctx.rotate(this.rotation/50);
+	    	ctx.drawImage(this.sprite,0,0,110,100,-this.width/2,-this.height/2,this.width,this.height);
+	    	// ctx.translate(-this.x + this.width/2, -this.y + this.height/2);
+	    	ctx.fillRect(0 ,0,10,10);
+	    	ctx.restore();
+	    	this.update();
+    	}
+    	this.update = function(){
+    		this.angle = Math.atan2(my - this.y + this.height/2, mx - this.x + this.width/2 );
+        	this.rotation = this.angle * (180/Math.PI);
+    		console.log(this.rotation);
+    	}
+    }
+
+    var sheet = new Player();
+
+ 
+
+
+
+	function draw(){
+		ctx.clearRect(0,0,500,500);
+		sheet.draw();
+
+		update();
+		window.requestAnimationFrame(draw);
+	}
+	function update(){
+		debug.innerHTML = mx +" | "+my;
+		
+	
+	}
+	window.requestAnimationFrame(draw);
+}
+
+main();
+
+
+
+</script>
+</body>
+</html>
