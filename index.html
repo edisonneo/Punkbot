@@ -14,6 +14,18 @@
 	<h2>Energy Cells</h2>
 	<h2 id="energy_cells"></h2>
  -->	
+ 	<div class="tutorial">
+ 		<img class="tutorial-back" src="images/back_arrow.png" alt="">
+ 		<div class="tutorial-stage">
+ 			<img src="" alt="">
+ 		</div>
+ 		<div class="next tut-btn">
+ 			<p>Next</p>
+ 		</div>
+ 		<div class="previous tut-btn">
+ 			<p>Previous</p>
+ 		</div>
+ 	</div>
 	<div class="game-message">
 		<h2 id="game_message"></h2>
 		<button> OK </button>
@@ -50,91 +62,197 @@
 			<div class="col-sm-12 close">Close</div>
 		</div>
 	</div>
+	<div class="game-over-restart">
+		<h1>Game Over!</h1>
+		<div class="restart-btn">
+			<p>Restart</p>
+		</div>
+	</div>
 	<div id="skillTree">
-		<div class="container">
+		<div class="skill-container container">
+			<div class="resources robot-parts-display">
+				<p>123</p>
+			</div>
+			<div class="resources energy-cells-display">
+				<p>65</p>
+			</div>
+			<div class="trade-button">
+				<img src="images/trade.png" alt="">
+			</div>
 			<div class="row">
-				<div class="col-sm-2 skill-cost">Upgrade Cost = <span></span></div>
-				<div class="col-sm-2">Shotgun</div>
+				<div style="opacity:0" class="col-sm-2 skill-cost">Upgrade Cost = <span></span></div>
+				<!-- <div class="col-sm-2">Shotgun</div>
 				<div class="col-sm-2">Sniper</div>
 				<div class="col-sm-2">Bazooka</div>
-				<div class="col-sm-2">Ultimate</div>
+				<div class="col-sm-2">Ultimate</div> -->
 			</div>
-			<div class="row speed">
-				<div class="col-sm-2">Speed</div>
-				<div class="col-sm-2">
-					<div class="skill-level-container shotgun-speed">
-						<p></p>
-					</div>
-				</div>
-				<div class="col-sm-2">
-					<div class="skill-level-container sniper-speed">
-						<p></p>
-					</div>
-				</div>
-				<div class="col-sm-2">
-					<div class="skill-level-container bazooka-speed">
-						<p></p>
-					</div>
-				</div>
-				<div class="col-sm-2">
-					<div class="skill-level-container ultimate ultimate-speed">
-						<img src="images/lock.svg" width="40" height="40" alt="">
-					</div>
-				</div>
-			</div>
-			<div class="row power">
-				<div class="col-sm-2">Power</div>
+			<div class="row power skill-row">
+				<!-- <div class="col-sm-3">Power</div> -->
 				<div class="col-sm-2">
 					<div class="skill-level-container shotgun-power">
 						<p></p>
+					</div>
+					<div class="plus-button">
+						
+					</div>
+					<div class="upgrade-descrip">
+						<p>Improve the efficiency of energy cell conversion of your shotgun shots to increase its damage by xx%</p>
+						<p class="skill-cost">Upgrade Cost: <span></span> </p>	
 					</div>
 				</div>
 				<div class="col-sm-2">
 					<div class="skill-level-container sniper-power">
 						<p></p>
 					</div>
+					<div class="plus-button">
+						
+					</div>
+					<div class="upgrade-descrip">
+						<p>Improve the efficiency of energy cell conversion of your sniper shots to increase its damage by xx%</p>
+						<p class="skill-cost">Upgrade Cost: <span></span> </p>
+						
+					</div>
 				</div>
 				<div class="col-sm-2">
 					<div class="skill-level-container bazooka-power">
 						<p></p>
 					</div>
+					<div class="plus-button">
+						
+					</div>
+					<div class="upgrade-descrip">
+						<p>Improve the efficiency of energy cell conversion of your bazooka shots to increase its damage by xx%</p>
+						<p class="skill-cost">Upgrade Cost: <span></span> </p>
+						
+					</div>
 				</div>
 				<div class="col-sm-2">
 					<div class="skill-level-container ultimate ultimate-power">
-						<img src="images/lock.svg" width="40" height="40" alt="">
+						<img src="images/lock icon.png" width="40" height="40" alt="">
+						<div class="upgrade-descrip">
+							<h4>Ooo le coolant to le scooorching heat.
+Removes overheat penalties and prevents overheat increases. Last 2 seconds.
+</h4>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="row effect">
-				<div class="col-sm-2">Effect</div>
+			<div class="row speed skill-row">
+				<!-- <div class="col-sm-2">Speed</div> -->
+				<div class="col-sm-2">
+					<div class="skill-level-container shotgun-speed">
+						<p></p>
+					</div>
+					<div class="plus-button">
+						
+					</div>
+					<div class="upgrade-descrip">
+						<p>Enhance cell compression to improve cell traverse speed of your shotgun shots by xx%</p>
+						<p class="skill-cost">Upgrade Cost: <span></span> </p>
+						
+					</div>
+				</div>
+				<div class="col-sm-2">
+					<div class="skill-level-container sniper-speed">
+						<p></p>
+					</div>
+					<div class="plus-button">
+						
+					</div>
+					<div class="upgrade-descrip">
+						<p>Enhance cell compression to improve cell traverse speed of your sniper shots by xx%</p>
+						<p class="skill-cost">Upgrade Cost: <span></span> </p>
+						
+					</div>
+				</div>
+				<div class="col-sm-2">
+					<div class="skill-level-container bazooka-speed">
+						<p></p>
+					</div>
+					<div class="plus-button">
+						
+					</div>
+					<div class="upgrade-descrip">
+						<p>Enhance cell compression to improve cell traverse speed of your bazooka shots by xx%</p>
+						<p class="skill-cost">Upgrade Cost: <span></span> </p>
+						
+					</div>
+				</div>
+				<div class="col-sm-2">
+					<div class="skill-level-container ultimate ultimate-speed">
+						<img src="images/lock icon.png" width="40" height="40" alt="">
+						<div class="upgrade-descrip">
+							<h4>Slick skills slows surround, shows swirly streaks.
+Lay down a freezing path that stops enemy movements upon contact. Last 2 seconds.
+
+</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row effect skill-row">
+				<!-- <div class="col-sm-2">Effect</div> -->
 				<div class="col-sm-2">
 					<div class="skill-level-container shotgun-effect">
 						<p></p>
 					</div>
-					<p class="effect-descrip">Increase Shotgun Spray</p>
+					<div class="plus-button">
+						
+					</div>
+					<div class="upgrade-descrip">
+						<p>Upgrade cell splitting core to increase max shot count by 1
+</p>
+						<p class="skill-cost">Upgrade Cost: <span></span> </p>
+						
+					</div>
+					<!-- <p class="effect-descrip">Increase Shotgun Spray</p> -->
 				</div>
 				<div class="col-sm-2">
 					<div class="skill-level-container sniper-effect">
 						<p></p>
 					</div>
-					<p class="effect-descrip">Increase Sniper Penetration Count</p>
+					<div class="plus-button">
+						
+					</div>
+					<div class="upgrade-descrip">
+						<p>Reinforce cell durability to improve penetration power by xx</p>
+						<p class="skill-cost">Upgrade Cost: <span></span> </p>
+						
+					</div>
+					<!-- <p class="effect-descrip">Increase Sniper Penetration Count</p> -->
 				</div>
 				<div class="col-sm-2">
 					<div class="skill-level-container bazooka-effect">
 						<p></p>
 					</div>
-					<p class="effect-descrip">Increase Bazooka Explosion Range</p>
+					<div class="plus-button">
+						
+					</div>
+					<div class="upgrade-descrip">
+						<p>Shock cell stability to increase cell explosion range by xx
+</p>
+						<p class="skill-cost">Upgrade Cost: <span></span> </p>
+						
+					</div>
+					<!-- <p class="effect-descrip">Increase Bazooka Explosion Range</p> -->
 				</div>
 				<div class="col-sm-2">
 					<div class="skill-level-container ultimate ultimate-effect">
-						<img src="images/lock.svg" width="40" height="40" alt="">
+						<img src="images/lock icon.png" width="40" height="40" alt="">
+						<div class="upgrade-descrip">
+							<h4>The ultimate cellular experience! Robese your enemies through sheer expansion by harnessing the essence of the cells.
+Become invulnerable to enemy attacks and inflict heavy damage to them upon impact. Last 2 seconds.
+</h4>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-12">
+			<div class="skill-msg-wrapper">
 				<h1 class="skill-message"></h1>
 			</div>
-			<div class="col-sm-12 close">Close</div>
+			<div class="col-sm-12 closeBtn">
+				<img src="images/back_arrow.png" alt="">
+			</div>
 		</div>
 	</div>
 <script src="newskills.js"></script>

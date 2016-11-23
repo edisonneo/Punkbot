@@ -4,10 +4,13 @@ function main(){
 	$(".skill-level-container p").text(0);
 	$("#skillTree").hide();
 	$("#trader").hide();
+	var picNo = 1;
+	$(".tutorial-stage img").attr("src","images/tutorial/tut"+ picNo +".jpg");
 
-	$(".skill-level-container").click(function(){
+
+	$(".plus-button").click(function(){
 		menuAudio();
-		skillLevel = $(this).find("p");
+		skillLevel = $(this).parent().find(".skill-level-container p");
 		currentLevel = parseInt(skillLevel.text());
 		skillMessage = $(".skill-message");
 		shotgunSpeed = parseInt($(".shotgun-speed p").text());
@@ -20,30 +23,32 @@ function main(){
 		bazookaPower = parseInt($(".bazooka-power p").text());
 		bazookaEffect = parseInt($(".bazooka-effect p").text());
 		
-		console.log(shotgunSpeed + sniperSpeed + bazookaSpeed + 1)
-
+		
 		if(shotgunSpeed + sniperSpeed + bazookaSpeed + 1 >= 15){
-			$(".ultimate-speed img").hide(300);
+			$(".ultimate-speed img").attr('src','images/oil_slick.png');
+			$(".ultimate-speed").addClass("unlocked");
 			gameState.ultimateSpeed = new UltimateSkillBox(680,"Oil Slick");
 			player.ultimateSpeed = true;
 		}
 		if(shotgunPower + sniperPower + bazookaPower + 1 >= 15){
-			$(".ultimate-power img").hide(300);
+			$(".ultimate-power img").attr('src','images/coolent.png');
+			$(".ultimate-power").addClass("unlocked");
 			gameState.ultimatePower = new UltimateSkillBox(760,"Coolant");
 			player.ultimatePower = true;
 		}
 		if(shotgunEffect + sniperEffect + bazookaEffect + 1 >= 15){
-			$(".ultimate-effect img").hide(300);
+			$(".ultimate-effect img").attr('src','images/robesity.png')
+			$(".ultimate-effect").addClass("unlocked");
 			gameState.ultimateEffect = new UltimateSkillBox(840,"Robesity")
 			player.ultimateEffect = true;
 		}
 
 		maxLevel = 5;
 		if(robot_parts < skill_cost){
-			skillMessage.text("Not enough robot parts");
+			skillMessage.text("Not enough robot parts").fadeIn().delay(1000).fadeOut();;
 		}
 		else if (currentLevel >= 5){
-			skillMessage.text("Max Level!");
+			skillMessage.text("Max Level!").fadeIn().delay(1000).fadeOut();
 		}
 		else{
 			robot_parts -= skill_cost;
@@ -53,15 +58,57 @@ function main(){
 		}
 	});
 
-	$("#skillTree .close").click(function(){
+	$("#skillTree .closeBtn").click(function(){
 		$("#skillTree").hide();
 		menuAudio();
 		paused = false;
 	});
-	$("#trader .close").click(function(){
+	$("#trader .closeBtn").click(function(){
 		$("#trader").hide();
 		menuAudio();
 		paused = false;
+	});
+
+	$(".trade-button").click(function(){
+		if(robot_parts > 0){
+			robot_parts -= 1;
+			energy_cells += 30;
+			chargeAudio();
+		}
+		else{
+			robot_parts = robot_parts;
+			energy_cells = energy_cells;
+		}		
+	});
+
+	$(".restart-btn").click(function(){
+		location.reload();
+		menuAudio();
+		$(".game-over-restart").hide();
+	});
+
+	$(".tutorial-back").click(function(){
+		$(".tutorial").hide();
+		menuAudio();
+	});
+
+	$(".tut-btn.next").click(function(){
+		picNo ++;
+		if(picNo >= 16){
+			picNo = 1;
+		}
+		menuAudio();
+		image = $(this).parent().find(".tutorial-stage img");
+		image.attr("src","images/tutorial/tut"+ picNo +".jpg");
+	});
+	$(".tut-btn.previous").click(function(){
+		picNo --;
+		if(picNo <= 0){
+			picNo = 15;
+		}
+		menuAudio();
+		image = $(this).parent().find(".tutorial-stage img");
+		image.attr("src","images/tutorial/tut"+ picNo +".jpg");
 	});
 
 	canvas = document.getElementById('game');
@@ -97,7 +144,7 @@ function main(){
 	// prog_tree_page = new ProgressTreePage();
 	prog_tree = new ProgressTree();
 	frames = 0;
-	robot_parts = 1000;
+	robot_parts = 10;
 	energy_cells = 500;
 	gameOverState = false;
 	
@@ -209,7 +256,8 @@ function main(){
 		window.requestAnimationFrame(draw);
 	}
 	function update(){
-		
+		$(".robot-parts-display p").text(robot_parts);
+		$(".energy-cells-display p").text(energy_cells);
 		$(".rparts").text(robot_parts);
 		$(".ecells").text(energy_cells);
 		$("#skillTree .skill-cost span").text(skill_cost);
@@ -219,6 +267,11 @@ function main(){
 			hold_click_counter++;
 			relase_value = hold_click_counter;
 		}
+
+		if(gameOverState){
+			$(".game-over-restart").css({display:"block"});
+		}
+
 		else{
 			hold_click_counter = 0;
 		}

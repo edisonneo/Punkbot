@@ -16,20 +16,151 @@ canvas{
 	top: 0px;
 	cursor: url(images/target.png) 15 15 , auto;
 	left: 100px;
+/*	top: 50%;
+	left:50%;
+	transform:translate(-50%,-50%);*/
 }
 
 
 .game-stats.parts{
 	position: absolute;
-	top: 89.2%;
-	left:15%;
+	top: 695px;
+	left:210px;
+}
+
+.row.skill-row{
+	margin-left: 450px;
+}
+
+.row.speed.skill-row{
+	margin-bottom: 46px;
+}
+
+.row.power.skill-row{
+	margin-bottom: 45px;
+}
+
+.plus-button{
+	background: url("images/plus.png");
+	width: 25px;
+	height: 26px;
+	position: absolute;
+}
+
+.power.skill-row .plus-button{
+	top:45%;
+	left:62%;
+}
+
+.speed.skill-row .plus-button{
+	top:43%;
+	left:62%;
+}
+
+.effect.skill-row .plus-button{
+	top:42%;
+	left:62%;
+}
+
+
+
+
+
+
+.upgrade-descrip{
+	width: 265px;
+	transform:scale(0.7);
+	height: 348px;
+	top: -20%;
+	display: none;
+	left: 40%;
+	z-index: 500;
+	position: absolute;
+	background: url("images/description_popup.png");
+
+}
+
+.skill-msg-wrapper{
+	position: absolute;
+	top: 20%;
+	left: 20%;
+}
+
+.skill-message{
+	display: none;
+}
+
+
+
+
+.upgrade-descrip p:first-child{
+	color: black;
+}
+
+
+.upgrade-descrip p {
+	padding: 0px 30px;
+	text-align: left;
+	margin-top: 30px;
+	font-size: 18px;
+}
+
+
+.ultimate.unlocked .upgrade-descrip{
+	left:-50%;
+}
+
+.ultimate.unlocked .upgrade-descrip h4{
+	text-align: left;
+	margin-top: 40px;
+	margin-left: 20px;
+}
+
+.ultimate.unlocked:hover .upgrade-descrip{
+	display: block;	
+}
+
+.effect.skill-row .upgrade-descrip{
+	top: -100%;
+}
+
+.plus-button:hover + .upgrade-descrip{
+	display: block;
+} 
+
+.row.skill-row .col-sm-2:first-child{
+	margin-right: 80px;
+}
+.row.skill-row .col-sm-2:nth-child(2){
+	margin-right: 80px;
+}
+.row.skill-row .col-sm-2:nth-child(3){
+	margin-right: 48px;
+}
+
+
+.trade-button{
+	position: absolute;
+	top: 66%;
+	left: 3%;
+	cursor: pointer;
+}
+
+.trade-button:hover > img{
+	transform:scale(1.1);
+}
+
+.skill-container{
+	margin-top: 130px;
+	margin-left: 60px;
 }
 
 .game-stats.cells{
 	position: absolute;
-	top: 89.2%;
-	left:31%;
+	top: 695px;
+	left:440px;
 }
+
 
 .game-stats .odometer{
 	font-size: 16px;
@@ -37,6 +168,14 @@ canvas{
 
 .game-stats{
 	display: none;
+}
+
+.closeBtn {
+	cursor: pointer;
+	top: 8%;
+	left: -44%;
+	position: absolute;
+	color: white;
 }
 
 #trader{
@@ -54,18 +193,101 @@ canvas{
 }
 
 #skillTree{
-	opacity: 0.7;
 	word-wrap:normal;
-	width: 80%;
+	width: 1200px;
+	height: 760px;
 	position: absolute;
  	z-index: 50;
- 	top: 50%;
- 	left: 50%;
+ 	top: 49%;
+ 	left: 48.6%;
  	transform: translate(-50%,-50%);
- 	background: #fff;
+ 	background: url("images/workshop_screen.png");
  	text-align: center;
+ 	color: white;
  	border-radius: 15px;
  	font-size: 30px;
+}
+
+
+.resources{
+	position: absolute;
+}
+
+.robot-parts-display{
+	top: 35%;
+	left: 13.2%;
+}
+
+.resources p{
+	font-size: 16px;
+}
+
+.game-over-restart{
+	display: none;
+	position: absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%,-50%);
+}
+
+.game-over-restart h1{
+	color: white;
+	font-size: 45px;
+}
+
+.game-over-restart .restart-btn{
+	cursor: pointer;
+	background: #000;
+	color: white;
+	font-size: 22px;
+	padding: 10px 25px;
+	text-align: center;
+}
+
+.tutorial{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	display: none;
+	transform:translate(-50%,-50%);
+}
+
+.tutorial-back{
+	position: absolute;
+	top: 10%;
+	left: 5%;
+	cursor: pointer;
+}
+
+.tut-btn{
+	position: absolute;
+	bottom: 10%;
+	background: yellow;
+	color: black;
+	padding: 10px 25px;
+	border-radius: 15px;
+	cursor: pointer;
+}
+
+.next.tut-btn{
+	right: -5%;
+}
+
+.tut-btn p{
+	margin:0px;
+}
+
+.previous.tut-btn{
+	left:-5%;
+}
+
+.restart-btn p{
+	margin:0px;
+}
+
+.energy-cells-display{
+	top: 82%;
+	left: 12.2%;
 }
 
 #game_message{
@@ -85,8 +307,11 @@ canvas{
 
 .skill-level-container{
 	margin: 0 auto;
+	margin-bottom: 100px;
+	margin-right: 50px;
 	background: black;
 	width: 50%;
+	border-radius: 100%;
 }
 
 .skill-level-container p{
@@ -99,7 +324,7 @@ canvas{
 
 
 .skill-cost span{
-	color:red;
+	color:white;
 }
 
 .skill-level-container.ultimate{

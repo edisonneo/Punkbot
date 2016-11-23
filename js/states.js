@@ -16,15 +16,15 @@ Home = function(){
 			t = tutorialButton;
 			if(mx >= l.x && mx < l.x+l.width && my >= l.y && my < l.y+l.height){
 				gameState = new EnemyLevel(1,13);
+				themeAudio();
 				in_battle = true;
 			 	in_skill_tree = false;
 			 	menuAudio();
 			}
 			if(mx >= t.x && mx < t.x+t.width && my >= t.y && my < t.y+t.height){
-				gameState = new EnemyLevel(1,13);
-				in_battle = false;
-				paused = true;
-			 	in_skill_tree = false;
+				menuAudio();
+				$(".tutorial").show();
+		
 			}
 
 
@@ -76,7 +76,7 @@ Home = function(){
 		ctx.fillStyle = "white";
 		gameStart.draw();
 		gameTitle.draw();
-		// tutorialButton.draw();
+		tutorialButton.draw();
 		//ctx.fillText("Home",10,50);
 
 		// for (var i = 0; i < levels.length; i++) {
@@ -186,7 +186,8 @@ EnemyLevel = function(level_number, robot_parts_reward){
 			if(mx >= trader.x && mx < trader.x+trader.length && my >= trader.y && my < trader.y+trader.length){
 				menuAudio();
 				$("#skillTree").hide();
-				$("#trader").show();
+				// $("#trader").show();
+				location.reload();
 				paused = true;
 				in_battle = false;
 				in_skill_tree = false;
@@ -259,7 +260,7 @@ EnemyLevel = function(level_number, robot_parts_reward){
 
 
 		if (player.dead){
-			gameOver.draw();
+			// gameOver.draw();
 			paused = true;
 		}
 
@@ -381,7 +382,7 @@ EnemyLevel = function(level_number, robot_parts_reward){
 
 
 		switch(this.numberOfEnemies){
-			case 4:
+			case 50:
 				this.wave = 2;
 				break;
 			case 100:

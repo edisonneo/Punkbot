@@ -91,5 +91,16 @@ function chargeAudio(){
     chargeSound.play();   
 }
 
+function themeAudio(){
+    var themeSound = document.createElement("audio");
+    themeSound.src = "audio/Crusade.mp3";
+    themeSound.addEventListener("ended", function () {
+        this.currentTime = 0;
+        this.play();
+    }, false);
+    themeSound.volume = 0.3;
+    themeSound.play();   
+}
+
 
 
